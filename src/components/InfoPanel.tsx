@@ -1,7 +1,7 @@
 // components/InfoPanel.js
 // import styles from '../styles/globals.css'; // Style accordingly
 import React, { useState } from 'react';
-import { Population, Briefcase, HeartPulse, GraduationCap, Home, Bus, Tree, Shield, Lightbulb } from "lucide-react";
+import { Users, Briefcase, HeartPulse, GraduationCap, Home, Bus, Trees, Shield, Lightbulb } from "lucide-react";
 
 const munData = {
   "1": {
@@ -10,7 +10,7 @@ const munData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "45,678",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -70,7 +70,7 @@ const munData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "156",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -107,7 +107,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "4378",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -167,7 +167,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "20",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -201,7 +201,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "6578",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -261,7 +261,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "40",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -295,7 +295,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "1478",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -355,7 +355,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "44",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -389,7 +389,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3478",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -449,7 +449,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "10",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -483,7 +483,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3453",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -543,7 +543,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "11",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -577,7 +577,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "844",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -637,7 +637,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "12",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -671,7 +671,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "1432",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -731,7 +731,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "14",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -765,7 +765,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "6782",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -825,7 +825,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "34",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -859,7 +859,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "2121",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -919,7 +919,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "43",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -953,7 +953,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3333",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1013,7 +1013,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "19",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1047,7 +1047,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3171",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1107,7 +1107,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "29",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1141,7 +1141,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "4833",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1201,7 +1201,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "2",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1235,7 +1235,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3332",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1295,7 +1295,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "22",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1329,7 +1329,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "4990",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1389,7 +1389,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "33",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1423,7 +1423,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "1234",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1483,7 +1483,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "43",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1517,7 +1517,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "423",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1577,7 +1577,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "63",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1611,7 +1611,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "1123",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1671,7 +1671,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "11",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1705,7 +1705,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "3422",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1765,7 +1765,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "156",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1799,7 +1799,7 @@ const wardData = {
         title: "Population and People",
         subtitle: "Total Population",
         value: "5321",
-        icon: Population,
+        icon: Users,
         source: {
           name: "Census Bureau",
           link: "https://census.gov"
@@ -1859,7 +1859,7 @@ const wardData = {
         title: "Environment",
         subtitle: "Green Spaces (acres)",
         value: "156",
-        icon: Tree,
+        icon: Trees,
         source: {
           name: "Environmental Department",
           link: "https://environment.gov"
@@ -1892,11 +1892,12 @@ const wardData = {
 };
 
 const InfoCard = ({ title, subtitle, value, icon: Icon, source }) => {
+  console.log('icon', Icon)
   return (
     <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-medium text-gray-700">{title}</h3>
-        {/* <Icon className="h-4 w-4 text-gray-500" /> */}
+        {Icon && <Icon className="h-6 w-6 text-gray-500" />}
       </div>
       <div className="text-2xl font-bold text-gray-900 mb-1">{value}</div>
       <p className="text-xs text-gray-500 mb-2">{subtitle}</p>

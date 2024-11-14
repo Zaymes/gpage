@@ -1,6 +1,6 @@
 
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import {
   Population,
@@ -13,9 +13,10 @@ import {
   Briefcase
 } from "lucide-react";
 
-import { PopulationContent, HealthContent, EducationContent, DefaultContent } from './AllWards';
+import { PopulationContent, HealthContent, EducationContent, DefaultContent } from '../Charts';
 
 // Navigation Component
+
 const SectorNavigation = ({ activeSector, onSectorChange }) => {
   // Navigation items configuration
   const sectorNavItems = [
@@ -28,10 +29,39 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
     { id: 'safety', label: 'Safety', Icon: Shield },
     { id: 'economy', label: 'Economy', Icon: Briefcase },
   ];
+
+  const sectorNavRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectorNavElement = sectorNavRef.current;
+      if (sectorNavElement) {
+        const sectorNavRect = sectorNavElement.getBoundingClientRect();
+        const isInView =
+          sectorNavRect.top >= 0 &&
+          sectorNavRect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+
+        if (isInView) {
+          sectorNavElement.classList.add('sticky', 'top-0', 'z-10');
+        } else {
+          sectorNavElement.classList.remove('sticky', 'top-0', 'z-10');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-wrap gap-2 p-4 bg-white rounded-lg shadow-sm">
+    <div
+      ref={sectorNavRef}
+      className="flex flex-wrap gap-2 p-4 bg-white rounded-lg shadow-sm"
+    >
       {sectorNavItems.map((item) => {
-        const IconComponent = item.Icon;  // Create a reference to the icon component
+        const IconComponent = item.Icon;
         return (
           <button
             key={item.id}
@@ -42,7 +72,7 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
           >
-            {/* <IconComponent className="w-4 h-4" />  Use the icon component reference */}
+            {IconComponent && <IconComponent className="w-4 h-4" />}
             <span>{item.label}</span>
           </button>
         );

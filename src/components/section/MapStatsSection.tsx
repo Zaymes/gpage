@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
-import Map from './Map';
-import InfoPanel from './InfoPanel';
+import Map from '../Map';
+import InfoPanel from '../InfoPanel';
 
 interface Ward{
     district: string;
@@ -36,7 +36,7 @@ export default function MapSection(){
         </div>
     
         {/* Main map content */}
-        <div style={{ flexGrow: 1, backgroundColor:'#F8F9FA' }}>
+        <div style={{ flexGrow: 1, backgroundColor:'#F8F9FA', padding:'10px' }}>
           <Map onWardSelect={handleWardSelect} />
         </div>
       </div>
