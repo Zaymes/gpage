@@ -19,8 +19,16 @@ import {
   ResponsiveContainer,
   CartesianAxis
 } from 'recharts';
-import {BarChartWithCaption, PopulationPyramidChart} from './SectionCharts'
+import { BarChartWithCaption, PopulationPyramidChart } from './SectionCharts'
 import ChloroplethMap from './Chloropleth';
+import CustomPieChart from './PiChartComponent';
+import CustomBarChart from './VerticalBarChart';
+import HorizontalBarChart from './HorizontalBar';
+import TreeMapChart from './TreeMapChart';
+import { pie_test_data, bar_data, horizontal_bar, rural_population, populationByWards, population_gender_ethnicity,
+  absenteePopulation,
+  population_by_language
+ } from './data';
 
 // const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
 // const AreaChart = dynamic(() => import('recharts').then(mod => mod.AreaChart), { ssr: false });
@@ -83,13 +91,29 @@ const educationData = [
   { level: 'College', students: 5000, schools: 12 },
 ];
 
+const marriageDivorce = {
+  datas: [
+    { year: '2019', Marriage: 385, Divorce: 200 },
+    { year: '2020', Marriage: 392, Divorce: 260 },
+    { year: '2021', Marriage: 398, Divorce: 300 },
+    { year: '2022', Marriage: 402, Divorce: 320 },
+  ],
+  caption: {
+    number: '2',
+    indicator: 'annual divorce',
+    description: 'while 32 marriage in municipality gor year 2022',
+    source: 'Vital Registration'
+  },
+  title: 'Marriage and Divorce Status',
+}
+
 const exampleData = {
   datas: [
-    { year: '2018', value: 380 },
-    { year: '2019', value: 385 },
-    { year: '2020', value: 392 },
-    { year: '2021', value: 398 },
-    { year: '2022', value: 402 },
+    { year: '2018', Birth: 380, Death: 300 },
+    { year: '2019', Birth: 385, Death: 200 },
+    { year: '2020', Birth: 392, Death: 260 },
+    { year: '2021', Birth: 398, Death: 300 },
+    { year: '2022', Birth: 402, Death: 320 },
   ],
   data: [
     { facility: 'Hospitals', count: 122 },
@@ -103,11 +127,24 @@ const exampleData = {
     { level: 'Higher Secondary', students: 8000, schools: 25 },
     { level: 'College', students: 5000, schools: 12 },
   ],
-  title: 'Health Facilities Accessibility',
-  caption: 'Population Growth Trend'
+  title: 'Birth vs Deaths',
+  caption: {
+    number: '32',
+    indicator: 'net population change',
+    description: 'on 100 births and 68 deaths for year 2022',
+    source: 'Department of Health'
+  }
 }
 
 
+
+const preparedData_absentee_pie = absenteePopulation.datas.map((item) => ({
+  data:[{ name: 'Male', value: item.Male },
+  { name: 'Female', value: item.Female },
+  ],
+  caption: item.caption,
+  category: item.category
+}));
 
 
 // component - viz for specific view
@@ -120,8 +157,8 @@ export const PopulationContent = () => {
   return (
     <div>
       <div className="space-y-6">
-        <h3 className="text-xl font-semibold text-black">Population Growth Trend</h3>
-        <div className="w-full" style={{ height: `${chartHeight}px` }}>
+        {/* <h3 className="text-xl font-semibold text-black">Population Growth Trend</h3> */}
+        {/* <div className="w-full" style={{ height: `${chartHeight}px` }}>
           {populationData && populationData.length > 0 && (
             <ResponsiveContainer width="50%" height="100%">
               <AreaChart data={populationData} width={chartWidth} height={chartHeight} margin={{ top: 40, right: 20, left: 20, bottom: 50 }}>
@@ -146,27 +183,211 @@ export const PopulationContent = () => {
               </AreaChart>
             </ResponsiveContainer>
           )}
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h4 className="text-sm font-medium text-blue-800">Current Population</h4>
-            <p className="text-2xl font-bold text-blue-600">402,469</p>
+        <div className='grid grid-cols-1 md:grid-cols-6 gap-4'>
+          <div className="col-span-1">
+            <h3 className='text-lg text-slate-700 font-semibold mb-4'> Municipal Status</h3>
+            <div className="w-52 bg-gray-50 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mb-4">
+              <h4 className="text-sm font-medium text-slate-900">Current Population</h4>
+              <p className="text-2xl font-bold text-slate-700">402,469</p>
+              <div className="text-xs text-blue-500">
+                <a
+                  href={''}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  Source: {'Department of Data'}
+                </a>
+              </div>
+            </div>
+            <div className="w-52 bg-gray-50 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mb-4">
+              <h4 className="text-sm font-medium text-slate-900">Growth Rate</h4>
+              <p className="text-2xl font-bold text-slate-700">1.8%</p>
+              <div className="text-xs text-blue-500">
+                <a
+                  href={''}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  Source: {'Department of Data'}
+                </a>
+              </div>
+            </div>
+            <div className="w-52 bg-gray-50 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mb-4">
+              <h4 className="text-sm font-medium text-slate-900">Density</h4>
+              <p className="text-2xl font-bold text-slate-700">4,567/km²</p>
+              <div className="text-xs text-blue-500">
+                <a
+                  href={''}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  Source: {'Department of Data'}
+                </a>
+              </div>
+            </div>
+            <div className="w-52 bg-gray-50 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mb-4">
+              <h4 className="text-sm font-medium text-slate-900">Density</h4>
+              <p className="text-2xl font-bold text-slate-700">4,567/km²</p>
+              <div className="text-xs text-blue-500">
+                <a
+                  href={''}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  Source: {'Department of Data'}
+                </a>
+              </div>
+            </div>
+
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h4 className="text-sm font-medium text-green-800">Growth Rate</h4>
-            <p className="text-2xl font-bold text-green-600">1.8%</p>
-          </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <h4 className="text-sm font-medium text-purple-800">Density</h4>
-            <p className="text-2xl font-bold text-purple-600">4,567/km²</p>
+          <div className='col-span-5'>
+            <CustomBarChart
+              data={populationByWards}
+              title="Population distribution by ethnicity"
+              xAxisKey="wardnumber"
+              yAxisKey="Male"
+              // xAxisLabel="Value"
+              barColor="#3b82f6"
+              height={600}
+              secondBar='Female'
+              // tickFormatter={formatNumber}
+              // valuePrefix=""
+              className="mx-auto bg-white p-4 rounded-lg shadow-sm"
+            />
+
           </div>
         </div>
       </div>
-      <ChloroplethMap/>
-      {/* <BarChartWithCaption dataset={exampleData}/> */}
-      <BarChartWithCaption dataset={exampleData}/>
-      <PopulationPyramidChart data={sampleData}/>
+      <PopulationPyramidChart data={sampleData} />
+
+
+
+      <ChloroplethMap />
+      <div className='mt-8 relative text-black bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mt-12 border-2'>
+        <h3 className="text-xl font-semibold text-black">Population distribution by Ethnicity</h3>
+        <p className='text-gray-400 text-md mt-0'>for Tulsipur Sub-Metropolitan City</p>
+        <div className='grid grid-cols-4 content-start gap-2'>
+          <div className='col-span-2 '>
+            <HorizontalBarChart
+              data={population_gender_ethnicity}
+              title="Population distribution by ethnicity"
+              xAxisKey="Male"
+              xAxisKey2="Female"
+              yAxisKey="category"
+              barColor="#3b82f6"
+              height={540}
+              // tickFormatter={formatNumber}
+              valuePrefix=""
+            // className=""
+            />
+          </div>
+          <div className="h-full col-span-2">
+            <div>
+              {/* <CustomPieChart data={rural_population} title='Rural Population' /> */}
+              <TreeMapChart
+                data={horizontal_bar}
+                title="Population Distribution by Ethnicity"
+                colors={['#1f77b4', '#ff7f0e', '#2ca02c']}
+                aspectRatio={16 / 9}
+                minHeight={500}
+                valueFormatter={(value) => `${(value / 1000).toFixed(1)}k`}
+                tooltipFormatter={(value) => `Population: ${value.toLocaleString()}`}
+              />
+              <div>
+                <div className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mt-4'>
+                  <h2 className='text-2xl font-bold text-gray-900 mb-1'>80%</h2>
+                  <p className='text-base text-gray-500 mb-2'>of Total Population</p>
+                  <small style={{ color: '#555' }}>Source: <a href={''} target="_blank" rel="noopener noreferrer">Tulsipur Sub-Metropolitan City</a></small>
+                </div>
+              </div>
+            </div>
+            {/* <div>
+            <CustomPieChart data={pie_test_data} title='Population Distribution by Language' />
+
+          </div> */}
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-8 relative text-black bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mt-12 border-2'>
+        <h3 className="text-xl font-semibold text-black">Population distribution by Language</h3>
+        <p className='text-gray-400 text-md mt-0'>for Tulsipur Sub-Metropolitan City</p>
+        <div className='grid grid-cols-4 content-start gap-2'>
+          <div className='col-span-2 '>
+            <HorizontalBarChart
+              data={population_by_language}
+              title="Population distribution by ethnicity"
+              xAxisKey="Male"
+              xAxisKey2="Female"
+              yAxisKey="category"
+              barColor="#3b82f6"
+              height={540}
+              // tickFormatter={formatNumber}
+              valuePrefix=""
+            // className=""
+            />
+          </div>
+          <div className="h-full col-span-2">
+            <div>
+              {/* <CustomPieChart data={rural_population} title='Rural Population' /> */}
+              <TreeMapChart
+                data={horizontal_bar}
+                title="Population Distribution by Ethnicity"
+                colors={['#1f77b4', '#ff7f0e', '#2ca02c']}
+                aspectRatio={16 / 9}
+                minHeight={500}
+                valueFormatter={(value) => `${(value / 1000).toFixed(1)}k`}
+                tooltipFormatter={(value) => `Population: ${value.toLocaleString()}`}
+              />
+              <div>
+                <div className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mt-4'>
+                  <h2 className='text-2xl font-bold text-gray-900 mb-1'>80%</h2>
+                  <p className='text-base text-gray-500 mb-2'>of Total Population</p>
+                  <small style={{ color: '#555' }}>Source: <a href={''} target="_blank" rel="noopener noreferrer">Tulsipur Sub-Metropolitan City</a></small>
+                </div>
+              </div>
+            </div>
+            {/* <div>
+            <CustomPieChart data={pie_test_data} title='Population Distribution by Language' />
+
+          </div> */}
+          </div>
+        </div>
+      </div>
+
+      <div className='grid grid-cols-2 gap-8'>
+        <div className='bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow mt-12 border-2'>
+          <h3 className="text-xl font-semibold text-black">Marriage vs Divorce</h3>
+          <p className='text-gray-400 text-md mt-0 mb-4'>for Tulsipur Sub-Metropolitan City</p>
+          <BarChartWithCaption dataset={marriageDivorce} bar1='Marriage' bar2='Divorce' stacked={false} />
+        </div>
+        <div className='bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow mt-12 border-2'>
+          <h3 className="text-xl font-semibold text-black">Birth vs Death</h3>
+          <p className='text-gray-400 text-md mt-0 mb-4'>for Tulsipur Sub-Metropolitan City</p>
+          <BarChartWithCaption dataset={exampleData} bar1='Birth' bar2='Death' stacked={false} />
+        </div>
+      </div>
+      <div className='bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow mt-8 border-2'>
+        <h3 className="text-xl font-semibold text-black">Absentee Population</h3>
+        <p className='text-gray-400 text-md mt-0 mb-4'>for Tulsipur Sub-Metropolitan City</p>
+        <div className='grid grid-cols-2 gap-8'>
+          <div>
+            <BarChartWithCaption dataset={marriageDivorce} bar1='Marriage' bar2='Divorce' stacked={false} />
+          </div>
+          {preparedData_absentee_pie.map((data,index)=>(
+          <div key={index}>
+            <CustomPieChart data={data.data} title={data.category} caption={data.caption}
+             />
+          </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 };

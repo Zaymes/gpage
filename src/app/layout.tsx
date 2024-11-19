@@ -34,10 +34,10 @@ export default async function RootLayout({
   return (
     <html lang='em'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
+        className={`antialiased bg-white`}
       >
         {/* <NextIntlClientProvider messages={messages}> */}
-        <main className="mx-auto max-w-[1920px]">
+        <main className="mx-auto">
           {children}
         </main>
         {/* </NextIntlClientProvider> */}

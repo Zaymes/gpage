@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Map from '../Map';
 import InfoPanel from '../InfoPanel';
+import {useWard} from '../../app/ProfileContext'
 
 interface Ward{
     district: string;
@@ -17,27 +18,28 @@ interface Ward{
     }
 
 export default function MapSection(){
-    const [selectedWard, setSelectedWard] = useState(null);
-    console.log('ward that has been selected',selectedWard);
+  const {ward} = useWard()
+    console.log('ward that has been selected',ward);
   
-    const handleWardSelect = (ward: Ward):void =>  {
-      setSelectedWard(ward); // Update state with the selected ward's data
-    };
+    // const handleWardSelect = (ward: Ward):void =>  {
+    //   setWard(ward); // Update state with the selected ward's data
+    // };
     return(
         <div style={{ display: 'flex' }}>
         {/* Sidebar to show selected ward details */}
-        <div style={{ width: '60%', padding: '10px', backgroundColor: '#f8f9fa', color:'black' }}>
-          <h1 className='p-4 text-xl font-bold '>Tulsipur Sub-Metropolitan City</h1>
-          {selectedWard ? (
-            <InfoPanel wardNumber={selectedWard}/>
-          ) : (
+        <div style={{ width: '60%', padding: '10px', backgroundColor: '#F3F9FD', color:'black' }}>
+          {/* <h1 className='p-4 text-xl font-bold '>Tulsipur Sub-Metropolitan City</h1> */}
+          {ward === 'Municipal' ? (
             <InfoPanel wardNumber="municipal"/>
+          ) : (
+            <InfoPanel wardNumber={ward}/>
           )}
         </div>
     
         {/* Main map content */}
-        <div style={{ flexGrow: 1, backgroundColor:'#F8F9FA', padding:'10px' }}>
-          <Map onWardSelect={handleWardSelect} />
+        {/* F3F9FD  F8F9FA*/}
+        <div style={{ flexGrow: 1, backgroundColor:'#F3F9FD', padding:'10px'}}>
+          <Map />
         </div>
       </div>
     )

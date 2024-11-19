@@ -1897,11 +1897,11 @@ const InfoCard = ({ title, subtitle, value, icon: Icon, source }) => {
     <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-medium text-gray-700">{title}</h3>
-        {Icon && <Icon className="h-6 w-6 text-gray-500" />}
+        {Icon && <Icon className="h-6 w-6 text-gray-700" />}
       </div>
       <div className="text-2xl font-bold text-gray-900 mb-1">{value}</div>
       <p className="text-xs text-gray-500 mb-2">{subtitle}</p>
-      <div className="text-xs text-blue-600">
+      <div className="text-xs text-blue-500">
         <a 
           href={source.link}
           target="_blank"
@@ -1939,7 +1939,7 @@ const InfoPanel = ({ wardNumber }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Ward {wardNumber.wards} - General Overview</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800 mb-4">Ward {wardNumber.wards} - General Overview</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {wardInfo.cards.map((card, index) => (
           <InfoCard
