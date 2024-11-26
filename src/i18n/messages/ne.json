@@ -7,6 +7,8 @@
     "common": {
       "loading": "लोड हुँदैछ...",
       "error": "त्रुटि: {message}",
+      "main_heading":"उप-महानगरपालिका प्रोफाइल",
+      "language": "नेपाली",
       "select": {
         "category": "कोटि छान्नुहोस्",
         "indicator": "सूचक छान्नुहोस्",

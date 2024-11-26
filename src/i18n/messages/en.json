@@ -7,6 +7,8 @@
     "common": {
       "loading": "Loading...",
       "error": "Error: {message}",
+      "main_heading":"Sub-Metropolitan City Profile",
+      "language": "English",
       "select": {
         "category": "Select Category",
         "indicator": "Select Indicator",

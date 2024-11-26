@@ -5,6 +5,8 @@ import InfoPanel from '../InfoPanel';
 import {useWard} from '../../app/ProfileContext'
 import { useLocale } from 'next-intl';
 
+
+
 interface Ward{
     district: string;
     district_code: number;

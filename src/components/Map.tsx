@@ -201,13 +201,13 @@ const Map = () => {
   return (
     <MapContainer
       center={[28.101213, 82.298307]}
-      zoom={11.45}
+      zoom={10.5}
       dragging={false}
       scrollWheelZoom={false}
       trackResize={true}
       doubleClickZoom={false}
       boxZoom
-      style={{ backgroundColor: '#fff', marginTop: '4%', height: '64vh', width: '100%', maxHeight:'500px' }}
+      style={{ backgroundColor: '#fff', marginTop: '4%', height: '60vh', width: '100%', maxHeight:'490px' }}
       ref={(map) => {
         if (map) {
           mapRef.current = map;
