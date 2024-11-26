@@ -88,7 +88,7 @@ const Map = () => {
         fillColor: '#00C897',
         weight: 3,
         color: '#333',
-        fillOpacity: 0.9,
+        fillOpacity: 1,
       };
     }
     
@@ -96,7 +96,7 @@ const Map = () => {
       fillColor: '#bfd1db',
       weight: 2,
       color: '#333',
-      fillOpacity: 0.4,
+      fillOpacity: 1,
     };
   };
 
@@ -207,7 +207,7 @@ const Map = () => {
       trackResize={true}
       doubleClickZoom={false}
       boxZoom
-      style={{ backgroundColor: '#fff', marginTop: '4%', height: '64vh', width: '100%' }}
+      style={{ backgroundColor: '#fff', marginTop: '4%', height: '64vh', width: '100%', maxHeight:'500px' }}
       ref={(map) => {
         if (map) {
           mapRef.current = map;
@@ -215,6 +215,12 @@ const Map = () => {
       }}
     >
       <MapClickHandler onMapClick={handleMapClick} />
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        opacity={0.4}
+        className='bg-slate-400'
+      />
       {geoData && (
         <GeoJSON 
           ref={(layer) => {
