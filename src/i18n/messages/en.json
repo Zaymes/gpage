@@ -1,0 +1,23 @@
+{
+    "navigation": {
+      "home": "Home",
+      "indicators": "Indicators",
+      "about": "About"
+    },
+    "common": {
+      "loading": "Loading...",
+      "error": "Error: {message}",
+      "select": {
+        "category": "Select Category",
+        "indicator": "Select Indicator",
+        "ward": "Select Ward"
+      }
+    },
+    "indicators": {
+      "types": {
+        "numeric": "Numeric",
+        "percentage": "Percentage",
+        "ratio": "Ratio"
+      }
+    }
+  }

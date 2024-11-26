@@ -1,0 +1,23 @@
+{
+    "navigation": {
+      "home": "गृह",
+      "indicators": "सूचकहरू",
+      "about": "बारेमा"
+    },
+    "common": {
+      "loading": "लोड हुँदैछ...",
+      "error": "त्रुटि: {message}",
+      "select": {
+        "category": "कोटि छान्नुहोस्",
+        "indicator": "सूचक छान्नुहोस्",
+        "ward": "वडा छान्नुहोस्"
+      }
+    },
+    "indicators": {
+      "types": {
+        "numeric": "संख्यात्मक",
+        "percentage": "प्रतिशत",
+        "ratio": "अनुपात"
+      }
+    }
+  }
