@@ -29,7 +29,6 @@ import { data01, colors, dataCardData } from './data'
 export const BarChartWithCaption = ({dataset, bar1, bar2, stacked}) => {
   const { chartWidth, chartHeight } = useResponsiveChart();
   const { datas, caption, title } = dataset
-  console.log('BAR chart data', dataset)
   return ( 
         <div className="grid grid-cols-1 md:grid-cols-4 content-end">
           {/* First Element: Takes 2/3 width on medium and larger screens */}
@@ -61,7 +60,6 @@ export const BarChartWithCaption = ({dataset, bar1, bar2, stacked}) => {
 export const HorizontalBarChart = ({dataset, bar1, bar2, stacked}) => {
   const { chartWidth, chartHeight } = useResponsiveChart();
   const { datas, caption, title } = dataset
-  console.log('BAR chart data', dataset)
   return (
     <div className='bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow mt-12'>
       <div className="space-y-6">
@@ -104,7 +102,6 @@ export const PopulationPyramidChart = ({ data }) => {
   }));
   const renderPositiveLabel = (props) => {
     const { x, y, width, value } = props;
-    console.log('width', width, x)
     const positiveValue = Math.abs(value); // Convert negative to positive
 
     return (

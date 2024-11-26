@@ -31,6 +31,7 @@ interface BarChartProps {
   hideXAxis?: boolean;
   hideYAxis?: boolean;
   secondBar?: string;
+  thirdBar?: string;
   margin?: {
     top?: number;
     right?: number;
@@ -45,6 +46,7 @@ const CustomBarChart: React.FC<BarChartProps> = ({
   xAxisKey = 'category',
   yAxisKey = 'value',
   secondBar = '',
+  thirdBar= '',
   barColor = '#3b82f6',
   height = '200',
   width = '100%',
@@ -173,6 +175,25 @@ const CustomBarChart: React.FC<BarChartProps> = ({
               className=" transition-opacity duration-200"
             >
               <LabelList dataKey={secondBar} position="insideTop" className='text-xs text-black' offset={20} angle={-90}  fill='#000' />
+            </Bar>:
+            null
+            }
+
+{
+              thirdBar !=="" ? 
+              <Bar
+              dataKey={thirdBar}
+              // fill='#D71A60'
+              // fill='#2463EB'
+              fill='gray'
+              stackId={2}
+              opacity={0.6}
+              barSize={barSize}
+              maxBarSize={maxBarWidth}
+              radius={[0,0, 0, 0]} // Rounded top corners
+              className=" transition-opacity duration-200"
+            >
+              <LabelList dataKey={thirdBar} position="insideTop" className='text-xs text-black' offset={20} angle={-90}  fill='#000' />
             </Bar>:
             null
             }

@@ -1,4 +1,6 @@
-import { Info, Users, UserFemale, Population, Percent, Child, ChildFemale, Book, Family } from 'lucide-react';
+// import { Info, Users, UserFemale, Population, Percent, Child, ChildFemale, Book, Family } from 'lucide-react';
+
+import { Info, Users, Population, Percent, Child, ChildFemale, Book, Family, User } from 'lucide-react';
 
 const data01 = [
     {
@@ -63,13 +65,13 @@ const dataCardData = [
         source: 'Census Data 2023'
     },
     {
-        icon: UserFemale,
+        icon: Users,
         name: 'Female Head of Family',
         value: 38.4,
         source: 'Census Data 2023'
     },
     {
-        icon: Population,
+        icon: Users,
         name: 'Total Population',
         value: 123456789,
         source: 'Census Data 2023'
@@ -87,13 +89,13 @@ const dataCardData = [
         source: 'Census Data 2023'
     },
     {
-        icon: Child,
+        icon: Users,
         name: 'Children Population',
         value: 28.3,
         source: 'Census Data 2023'
     },
     {
-        icon: ChildFemale,
+        icon: Users,
         name: 'Child Sex Ratio',
         value: 919,
         source: 'Census Data 2023'
@@ -105,13 +107,13 @@ const dataCardData = [
         source: 'Census Data 2023'
     },
     {
-        icon: Family,
+        icon: Users,
         name: 'Nuclear Families',
         value: 8765,
         source: 'Census Data 2023'
     },
     {
-        icon: Family,
+        icon: Users,
         name: 'Single Parent Families',
         value: 1234,
         source: 'Census Data 2023'
@@ -436,8 +438,87 @@ const population_by_language = [
     { category: "Magar Dhut", Male: 2.7, Female: 2.9 },
   ];
 
+const wardwise_family = [
+    {
+        "wardnumber": "ward 1",
+        "Value": 1232
+    },
+    {
+        "wardnumber": "ward 2",
+        "Value": 1182
+    },
+    {
+        "wardnumber": "ward 3",
+        "Value": 2003
+    },
+    {
+        "wardnumber": "ward 4",
+        "Value": 2338
+    },
+    {
+        "wardnumber": "ward 5",
+        "Value": 3608
+    },
+    {
+        "wardnumber": "ward 6",
+        "Value": 6073
+    },
+    {
+        "wardnumber": "ward 7",
+        "Value": 3526
+    },
+    {
+        "wardnumber": "ward 8",
+        "Value": 2208
+    },
+    {
+        "wardnumber": "ward 9",
+        "Value": 3773
+    },
+    {
+        "wardnumber": "ward 10",
+        "Value": 1600
+    },
+    {
+        "wardnumber": "ward 11",
+        "Value": 2150
+    },
+    {
+        "wardnumber": "ward 12",
+        "Value": 2673
+    },
+    {
+        "wardnumber": "ward 13",
+        "Value": 1480
+    },
+    {
+        "wardnumber": "ward 14",
+        "Value": 1627
+    },
+    {
+        "wardnumber": "ward 15",
+        "Value": 1928
+    },
+    {
+        "wardnumber": "ward 16",
+        "Value": 1907
+    },
+    {
+        "wardnumber": "ward 17",
+        "Value": 2292
+    },
+    {
+        "wardnumber": "ward 18",
+        "Value": 2384
+    },
+    {
+        "wardnumber": "ward 19",
+        "Value": 2034
+    }
+]
+
 
 export {
     data01, data02, colors, dataCardData, pie_test_data, bar_data, horizontal_bar, rural_population, populationByWards,
-    population_gender_ethnicity, absenteePopulation, population_by_language
+    population_gender_ethnicity, absenteePopulation, population_by_language, wardwise_family
 }

@@ -16,8 +16,10 @@ import {
 } from "lucide-react";
 
 import { PopulationContent, HealthContent, EducationContent, DefaultContent } from '../Charts';
-import {WardContext} from '../../app/page'
+import { FamilyAndHousing } from '../profile/FamilyAndHousing';
+import {WardContext} from '../../app/[locale]/page'
 import {useWard} from '../../app/ProfileContext'
+import { useData } from '@/contexts/DataContext';
 
 // Navigation Component
 
@@ -61,6 +63,10 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
     };
   }, []);
 
+  const { wardData, categoryData, yearlyData } = useData();
+
+  console.log('Data from inside', yearlyData)
+
   return (
     <div
       ref={sectorNavRef}
@@ -91,6 +97,7 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
 const SectorView = ({ sector }) => {
   const contentMap = {
     population: <PopulationContent />,
+    familyAndHousing: <FamilyAndHousing />,
     health: <HealthContent />,
     education: <EducationContent />,
     infrastructure: <DefaultContent sector="Infrastructure" />,
@@ -109,7 +116,6 @@ const SectorView = ({ sector }) => {
 
 const DetailedProfileSection = () => {
   const {ward} = useWard()
-  console.log('FROM SeC Section', ward)
   const [activeSector, setActiveSector] = useState('population')
   return (
     <div className="p-4 space-y-4">

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Map from '../Map';
 import InfoPanel from '../InfoPanel';
 import {useWard} from '../../app/ProfileContext'
+import { useLocale } from 'next-intl';
 
 interface Ward{
     district: string;
@@ -19,7 +20,9 @@ interface Ward{
 
 export default function MapSection(){
   const {ward} = useWard()
-    console.log('ward that has been selected',ward);
+  const locale = useLocale()
+  console.log('Locale from inside somewhere', locale)
+    // console.log('ward that has been selected',ward);
   
     // const handleWardSelect = (ward: Ward):void =>  {
     //   setWard(ward); // Update state with the selected ward's data

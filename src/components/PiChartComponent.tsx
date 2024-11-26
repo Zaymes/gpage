@@ -52,7 +52,6 @@ const CustomPieChart = ({
     );
   };
 
-  console.log('PIE DATA', caption)
 
   return (
     <div className='grid grid-cols-2 mb-8'>

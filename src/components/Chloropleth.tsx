@@ -11,7 +11,7 @@ const ChloroplethMap: React.FC = () => {
   return (
     <div>
       {wardGeoJson && wardData && (
-        <ChoroplethComponent
+        <ChoroplethComp onent
           geoJson={wardGeoJson}
           data={wardData}
           dataCardData={dataCardData}

@@ -157,34 +157,6 @@ export const PopulationContent = () => {
   return (
     <div>
       <div className="space-y-6">
-        {/* <h3 className="text-xl font-semibold text-black">Population Growth Trend</h3> */}
-        {/* <div className="w-full" style={{ height: `${chartHeight}px` }}>
-          {populationData && populationData.length > 0 && (
-            <ResponsiveContainer width="50%" height="100%">
-              <AreaChart data={populationData} width={chartWidth} height={chartHeight} margin={{ top: 40, right: 20, left: 20, bottom: 50 }}>
-                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-                <CartesianAxis orientation='bottom' />
-                <XAxis
-                  dataKey="year"
-                />
-                <YAxis
-                  hide={false}
-                  width={60}
-                  height={chartHeight}
-                  orientation='left'
-                  // allowDataOverflow
-                  // tick={{ fill: '#333' }}
-                  // label={{ value: 'Population', angle: -90, position: 'insideLeft' }}
-                  domain={['dataMin', 'dataMax']}
-                />
-                <Tooltip />
-                <Legend layout="horizontal" verticalAlign="top" align="center" />
-                <Area type="monotone" dataKey="value" fill="#3b82f6" stroke="#2563eb" name="Population" />
-              </AreaChart>
-            </ResponsiveContainer>
-          )}
-        </div> */}
-
         <div className='grid grid-cols-1 md:grid-cols-6 gap-4'>
           <div className="col-span-1">
             <h3 className='text-lg text-slate-700 font-semibold mb-4'> Municipal Status</h3>
@@ -268,7 +240,7 @@ export const PopulationContent = () => {
 
 
 
-      <ChloroplethMap />
+      {/* <ChloroplethMap /> */}
       <div className='mt-8 relative text-black bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow mt-12 border-2'>
         <h3 className="text-xl font-semibold text-black">Population distribution by Ethnicity</h3>
         <p className='text-gray-400 text-md mt-0'>for Tulsipur Sub-Metropolitan City</p>
