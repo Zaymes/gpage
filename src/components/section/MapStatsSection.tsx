@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import Map from '../Map';
 import InfoPanel from '../InfoPanel';
-import {useWard} from '../../app/ProfileContext'
 import { useLocale } from 'next-intl';
+import { WardContext } from '@/app/ProfileContext';
 
 
 
@@ -21,15 +21,16 @@ interface Ward{
     }
 
 export default function MapSection(){
-  const {ward} = useWard()
+  // const {ward} = useWard()
   const locale = useLocale()
-  console.log('Locale from inside somewhere', locale)
+  const [ward, setWard] = useState<string>('Municipal')
     // console.log('ward that has been selected',ward);
   
     // const handleWardSelect = (ward: Ward):void =>  {
     //   setWard(ward); // Update state with the selected ward's data
     // };
     return(
+      <WardContext.Provider value={{ ward, setWard }}>
         <div style={{ display: 'flex' }}>
         {/* Sidebar to show selected ward details */}
         <div style={{ width: '60%', padding: '10px', backgroundColor: '#F3F9FD', color:'black' }}>
@@ -47,5 +48,6 @@ export default function MapSection(){
           <Map />
         </div>
       </div>
+    </WardContext.Provider>
     )
 }

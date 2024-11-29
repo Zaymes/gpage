@@ -41,3 +41,40 @@ export interface DataContextType {
     isLoading: boolean;
     error: Error | null;
 }
+
+export interface StatisticalMetrics {
+    mean: number;
+    median: number;
+    standardDeviation: number;
+  }
+  
+  // Chart Series Item
+  export interface ChartSeriesItem {
+    name: string;
+    data: number[];
+  }
+  
+  // Multilingual Labels
+  export interface ChartLabels {
+    x: string;
+    y: string;
+    tooltip: string;
+  }
+  
+  // Comprehensive Chart Data Preparation Result
+  export interface ChartDataPreparationResult {
+    // Categories for X-axis
+    categories: string[];
+  
+    // Data series for charting
+    series: ChartSeriesItem[];
+  
+    // Multilingual labels
+    labels: ChartLabels;
+  
+    // Statistical calculations
+    stats: StatisticalMetrics;
+  
+    // Indicator type (e.g., 'numeric', 'percentage')
+    indicatorType: string;
+  }

@@ -1,7 +1,6 @@
 
 "use client"
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect, useRef} from 'react';
 import {
   Users,
   HeartPulse,
@@ -12,33 +11,37 @@ import {
   Shield,
   Briefcase,
   Handshake,
-  HousePlus
+  HousePlus,
 } from "lucide-react";
 
-import { PopulationContent, HealthContent, EducationContent, DefaultContent } from '../Charts';
-import { FamilyAndHousing } from '../profile/FamilyAndHousing';
-import {WardContext} from '../../app/[locale]/page'
-import {useWard} from '../../app/ProfileContext'
+import { DefaultContent } from '../Charts';
+import PopulationContent from '../profile/Population';
 import { useData } from '@/contexts/DataContext';
+import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 // Navigation Component
 
 const SectorNavigation = ({ activeSector, onSectorChange }) => {
   // Navigation items configuration
+  const t = useTranslations()
+  const locale = useLocale()
   const sectorNavItems = [
-    { id: 'population', label: 'Population', Icon: Users },
-    { id: 'familyAndHousing', label: 'Family and Housing', Icon: HousePlus },
-    { id: 'Social Structure', label: 'Social Structure', Icon: Handshake },
-    { id: 'health', label: 'Healthcare', Icon: HeartPulse },
-    { id: 'education', label: 'Education', Icon: GraduationCap },
-    { id: 'infrastructure', label: 'Infrastructure', Icon: Building2 },
-    { id: 'transportation', label: 'Transportation', Icon: Bus },
+    { id: 'population', label: 'Population', label_ne: 'जनसंख्या', Icon: Users },
+    { id: 'familyAndHousing', label: 'Family and Housing', label_ne: 'परिवार र आवास', Icon: HousePlus },
+    { id: 'health', label: 'Healthcare', label_ne: 'स्वास्थ्य', Icon: HeartPulse },
+    { id: 'education', label: 'Education', label_ne: 'शिक्षा', Icon: GraduationCap },
+    { id: 'economy', label: 'Economy', label_ne: 'अर्थतन्त्र', Icon: Briefcase },
+    { id: 'social', label: 'Agriculture and Land', label_ne: 'कृषि र भूमि', Icon: Handshake },
+    { id: 'infrastructure', label: 'Infrastructure', label_ne: 'पूर्वाधार', Icon: Building2 },
+    { id: 'transportation', label: 'Women and Children', label_ne: 'महिला र बालबालिका', Icon: Bus },
     // { id: 'environment', label: 'Agricutlure and Environment', Icon: Tree },
     // { id: 'safety', label: 'Safety', Icon: Shield },
-    { id: 'economy', label: 'Economy', Icon: Briefcase },
   ];
 
   const sectorNavRef = useRef(null);
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +68,6 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
 
   const { wardData, categoryData, yearlyData } = useData();
 
-  console.log('Data from inside', yearlyData)
 
   return (
     <div
@@ -85,7 +87,7 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
               }`}
           >
             {IconComponent && <IconComponent className="w-4 h-4" />}
-            <span>{item.label}</span>
+            <span>{locale === "en" ? item.label : item.label_ne}</span>
           </button>
         );
       })}
@@ -96,15 +98,16 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
 // Main Sector View Component
 const SectorView = ({ sector }) => {
   const contentMap = {
-    population: <PopulationContent />,
-    familyAndHousing: <FamilyAndHousing />,
-    health: <HealthContent />,
-    education: <EducationContent />,
+    population: <PopulationContent category='population'/>,
+    familyAndHousing: <PopulationContent category='family and household' />,
+    health: <PopulationContent category='health' />,
+    education: <PopulationContent category='education'/>,
     infrastructure: <DefaultContent sector="Infrastructure" />,
-    transportation: <DefaultContent sector="Transportation" />,
-    environment: <DefaultContent sector="Environment" />,
+    transportation: <PopulationContent category="women and children" />,
+    environment: <PopulationContent category="agriculture" />,
+    social: <PopulationContent category="agriculture" />,
     safety: <DefaultContent sector="Safety" />,
-    economy: <DefaultContent sector="Economy" />,
+    economy: <PopulationContent category='economy' />,
   };
 
   return (
@@ -115,7 +118,7 @@ const SectorView = ({ sector }) => {
 };
 
 const DetailedProfileSection = () => {
-  const {ward} = useWard()
+  // const {ward} = useWard()
   const [activeSector, setActiveSector] = useState('population')
   return (
     <div className="p-4 space-y-4">

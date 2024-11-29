@@ -46,7 +46,7 @@ const InfoPanel = ({ wardNumber }) => {
   const locale = useLocale()
   const { mainBannerData, isLoading, error } = useData()
   const selectedWard = wardNumber === "municipal" ? 'All Wards' : wardNumber.wards;
-  console.log('Type', typeof (selectedWard), selectedWard)
+  // console.log('Type', typeof (selectedWard), selectedWard)
 
   if (isLoading) return <div>{t('common.loading')}</div>;
   if (error) return <div>{t('common.error', { message: error.message })}</div>;
