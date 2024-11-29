@@ -21,5 +21,11 @@
         "percentage": "प्रतिशत",
         "ratio": "अनुपात"
       }
+    },
+    "summary":{
+      "high_wards_title":"{message}को आधार्मा शीर्ष वडाहरु",
+      "low_wards_title":"{message}को आधार्मा निम्न वडाहरु",
+      "total_count":"कुल {message}"
+
     }
   }

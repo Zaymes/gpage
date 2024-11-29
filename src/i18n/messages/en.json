@@ -21,5 +21,11 @@
         "percentage": "Percentage",
         "ratio": "Ratio"
       }
+    },
+    "summary":{
+      "high_wards_title":"Wards with highest {message}",
+      "low_wards_title":"Wards with lowest {message}",
+      "total_count":"Total {message}"
+
     }
   }
