@@ -8,12 +8,6 @@ const CKAN_BASE_URL = 'https://data.tulsipurmun.gov.np/';
 //   yearlyData: 'YOUR_THIRD_RESOURCE_ID',
 //   mainBannerData: 'f8791dae-3839-4e9d-9dd0-f68edd0ade75'
 // };
-const RESOURCE_IDS = {
-  wardData: 'f8791dae-3839-4e9d-9dd0-f68edd0ade75',
-  categoryData: '9f5f3673-ed24-4f9d-ac55-da769264e1c3',
-  yearlyData: 'a80e6f91-718e-4af5-a0ac-cfafc2858bad',
-  mainBannerData: '798e979b-959f-4def-bb13-0ce8630da293',
-};
 export const fetchResourceData = cache(async (resourceId: string) => {
   try {
     const response = await fetch(`${CKAN_BASE_URL}/api/v1/data_search?id=${resourceId}&limit=10000`, {
@@ -41,6 +35,7 @@ export const fetchUniqueColumnValues = cache(async (
     if (category) {
       sqlQuery += ` WHERE "category" = '${category}'`;
     }
+    // sqlQuery += ` ORDER BY ID \"_id\"`;
     const encodedQuery = encodeURIComponent(sqlQuery);
 
     const response = await fetch(`https://dms.tulsipurmun.gov.np/api/v1/datastore_search_sql?sql=${encodedQuery}`, {
@@ -53,7 +48,7 @@ export const fetchUniqueColumnValues = cache(async (
       throw new Error(responseData.error?.info?.orig?.[0] || 'Unknown API error');
     }
 
-    return responseData.result.records.map((record: any) => record[columnName]);
+    return responseData.result.records.map((record: []) => record[columnName]);
   } catch (error) {
     console.error(`Error fetching unique values:`, error);
     throw error;

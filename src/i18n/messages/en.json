@@ -8,6 +8,9 @@
       "loading": "Loading...",
       "error": "Error: {message}",
       "main_heading":"Sub-Metropolitan City Profile",
+      "sub_heading": "Municipal Overview",
+      "ward_no_wrapper":"Ward {message} overview",
+      "profile_topics": "Profile Topics",
       "language": "English",
       "select": {
         "category": "Select Category",
@@ -25,7 +28,12 @@
     "summary":{
       "high_wards_title":"Wards with highest {message}",
       "low_wards_title":"Wards with lowest {message}",
-      "total_count":"Total {message}"
+      "total_count":"Total {message}",
+      "average":"Average {message}",
+      "top3": "Top 3 categories",
+      "bottom3":"Bottom 3 categories",
+      "top3_contribution":"Contributions of top 3 in the total distribution",
+      "bottom3_contribution":"Contributions of bottom 3 in the total distribution"
 
     }
   }

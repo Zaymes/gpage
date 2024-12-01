@@ -10,7 +10,7 @@ export type MainBannerData = Omit<WardIndicatorData, 'category'>;
 
 
 export interface WardIndicatorData extends BaseIndicatorData {
-    category_np: string;
+    category_ne: string;
     ward_number: string;
     ward_name_ne: string;
     ward_name_en: string;

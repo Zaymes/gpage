@@ -1,7 +1,6 @@
 import { WardIndicatorData, CategoryIndicatorData, YearlyIndicatorData } from '../../../types/data';
 import { mean, median, standardDeviation, sum } from 'simple-statistics';
 import { getTopAndBottomElements } from '../stats/simpleCalculations';
-import { useLocale } from 'next-intl';
 import { toHinduNumeral } from './statistics';
 
 interface CategorySummary {
@@ -23,8 +22,8 @@ interface ChartDataPreparationResult {
     median: string;
     standardDeviation: string;
     count: string;
-    top: number[];
-    bottom: number[];
+    top: [];
+    bottom: [];
   };
   indicatorType: string;
   theme: string;
@@ -54,10 +53,12 @@ export default class DataPreparationUtils {
 
     // Prepare chart data
     const categories = filteredData.map(item => item[wardLabel]);
+
     
     // this looks like a hack needs to change
     // TODO also change the categogory_np to category_ne later.
-    const theme = language === 'en' ? filteredData[0].category : filteredData[0].category_ne
+    // const theme = language === 'en' ? filteredData[0].category : filteredData[0].category_ne
+    const theme = language === 'en' ? filteredData[0]?.indicator_name_en : filteredData[0]?.indicator_name_ne
     const values = filteredData.map(item => parseFloat(item[valueLabel] || '0'));
     const {top5, bottom5} = getTopAndBottomElements(values, categories)
 
@@ -171,7 +172,7 @@ export default class DataPreparationUtils {
   ): ChartDataPreparationResult {
     // Determine labels based on language
     const indicatorLabel = language === 'en' ? 'indicator_name_en' : 'indicator_name_ne';
-    const valueLabel = language === 'en' ? 'indicator_value_en' : 'indicator_value_ne';
+    const valueLabel = language === 'en' ? 'indicator_value_en' : 'indicator_value_en';
   
     // Filter data by the specific indicator_code
     const filteredData = data.filter(item => item.indicator_code === indicatorCode);
@@ -184,7 +185,7 @@ export default class DataPreparationUtils {
         labels: {
           x: language === 'en' ? 'Years' : 'वर्षहरू',
           y: language === 'en' ? 'Values' : 'मान',
-          tooltip: language === 'en' ? 'Indicator Trend' : 'सूचक प्रवृत्ति'
+          tooltip: filteredData[0][indicatorLabel].concat( language=== "en" ? "annual trend" : "वार्षिक प्रवृत्ति" )
         },
         stats: {
           mean: 0,
@@ -206,13 +207,12 @@ export default class DataPreparationUtils {
   
     // Prepare chart data
     const categories = Object.keys(groupedData).sort();
-    const series = Object.entries(groupedData[categories[0]] || {}).map(([indicator, value]) => ({
+    const series = Object.entries(groupedData[categories[0]] || {}).map(([indicator]) => ({
       name: indicator,
       data: categories.map(year => groupedData[year]?.[indicator] || 0)
     }));
   
     // Calculate statistics (using first series)
-    const values = series[0]?.data || [];
     const stats = {
       mean: '0',
       median: '0',
@@ -225,7 +225,7 @@ export default class DataPreparationUtils {
       labels: {
         x: language === 'en' ? 'Years' : 'वर्षहरू',
         y: language === 'en' ? 'Values' : 'मान',
-        tooltip: language === 'en' ? 'Indicator Trend' : 'सूचक प्रवृत्ति'
+        tooltip: filteredData[0][indicatorLabel].concat( language=== "en" ? " annual trend" : " वार्षिक प्रवृत्ति" )
       },
       stats,
       indicatorType: filteredData[0]?.indicator_type || 'numeric'
@@ -237,7 +237,6 @@ export default class DataPreparationUtils {
     data: CategoryIndicatorData[], 
     indicatorCode: string,
     language: 'en' | 'ne' = 'en',
-    chartType: 'bar' | 'pie' = 'bar'
   ): ChartDataPreparationResult {
     const mainIndicatorLabel = language === 'en' ? 'main_indicator_name_en' : 'main_indicator_name_ne';
     const subIndicatorLabel = language === 'en' ? 'sub_indicator_name_en' : 'sub_indicator_name_ne';
@@ -316,11 +315,6 @@ export default class DataPreparationUtils {
   
     
   
-    // Accurate statistics calculation
-    const values = pieseries[0].data;
-    const mean = '0';
-    const median = 'o';
-    const standardDeviation = '0';
   
     return {
       categories,

@@ -1,12 +1,12 @@
 // components/InfoPanel.js
 // import styles from '../styles/globals.css'; // Style accordingly
-import React, { useState } from 'react';
-import { LandPlot, PersonStanding, HandCoins, Accessibility, University, Users, Briefcase, HeartPulse, GraduationCap, Home, Bus, Trees, Shield, Lightbulb } from "lucide-react";
+import React from 'react';
+import { LandPlot, PersonStanding, HandCoins, Accessibility, University, Users, HeartPulse, GraduationCap, Home} from "lucide-react";
 import { useData } from '@/contexts/DataContext';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import { colors } from './data';
 import LanguageSwitch from './LanguageSwitcher';
+import { toHinduNumeral } from '@/lib/transforms/statistics';
 
 
 
@@ -46,20 +46,21 @@ const InfoPanel = ({ wardNumber }) => {
   const locale = useLocale()
   const { mainBannerData, isLoading, error } = useData()
   const selectedWard = wardNumber === "municipal" ? 'All Wards' : wardNumber.wards;
-  // console.log('Type', typeof (selectedWard), selectedWard)
 
   if (isLoading) return <div>{t('common.loading')}</div>;
   if (error) return <div>{t('common.error', { message: error.message })}</div>;
 
   return (
     <div className="p-4">
-      <div className='flex justify-end'>
+      <div className='flex justify-between'>
+      <h2 className="text-3xl font-bold mb-4 text-gray-800 mb-4">{t('common.main_heading')}</h2>
+      <div className='flex justify-end items-center'>
         <p className='text-sm my-auto'>{t('common.language')}</p>
         <LanguageSwitch />
       </div>
-      <h2 className="text-3xl font-bold mb-4 text-gray-800 mb-4">{t('common.main_heading')}</h2>
+      </div>
       {/* Todo make a translation here and proper content */}
-      <h3 className="text-2xl font-normal mb-4 text-gray-700 mb-4">{selectedWard === "All Wards" ? "Municipal Overview" : <p>{selectedWard}</p>}</h3>
+      <h3 className="text-xl font-normal mb-4 text-gray-700 mb-4">{selectedWard === "All Wards" ? `${t('common.sub_heading')}` : <p>{t('common.ward_no_wrapper',{message: locale==="ne"?toHinduNumeral(selectedWard) : selectedWard})}</p>}</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {mainBannerData.filter((item) => String(item.ward_number) === String(selectedWard)).map((item, index) => (

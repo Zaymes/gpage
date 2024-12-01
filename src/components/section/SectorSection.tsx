@@ -1,22 +1,19 @@
 
 "use client"
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Users,
   HeartPulse,
   GraduationCap,
   Building2,
-  Bus,
-  Tree,
-  Shield,
   Briefcase,
-  Handshake,
   HousePlus,
+  Baby,
+  LandPlot
 } from "lucide-react";
 
 import { DefaultContent } from '../Charts';
 import PopulationContent from '../profile/Population';
-import { useData } from '@/contexts/DataContext';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 
@@ -24,7 +21,6 @@ import { useLocale } from 'next-intl';
 
 const SectorNavigation = ({ activeSector, onSectorChange }) => {
   // Navigation items configuration
-  const t = useTranslations()
   const locale = useLocale()
   const sectorNavItems = [
     { id: 'population', label: 'Population', label_ne: 'जनसंख्या', Icon: Users },
@@ -32,11 +28,9 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
     { id: 'health', label: 'Healthcare', label_ne: 'स्वास्थ्य', Icon: HeartPulse },
     { id: 'education', label: 'Education', label_ne: 'शिक्षा', Icon: GraduationCap },
     { id: 'economy', label: 'Economy', label_ne: 'अर्थतन्त्र', Icon: Briefcase },
-    { id: 'social', label: 'Agriculture and Land', label_ne: 'कृषि र भूमि', Icon: Handshake },
+    { id: 'social', label: 'Agriculture and Land', label_ne: 'कृषि र भूमि', Icon: LandPlot },
     { id: 'infrastructure', label: 'Infrastructure', label_ne: 'पूर्वाधार', Icon: Building2 },
-    { id: 'transportation', label: 'Women and Children', label_ne: 'महिला र बालबालिका', Icon: Bus },
-    // { id: 'environment', label: 'Agricutlure and Environment', Icon: Tree },
-    // { id: 'safety', label: 'Safety', Icon: Shield },
+    { id: 'transportation', label: 'Women and Children', label_ne: 'महिला र बालबालिका', Icon: Baby },
   ];
 
   const sectorNavRef = useRef(null);
@@ -66,7 +60,27 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
     };
   }, []);
 
-  const { wardData, categoryData, yearlyData } = useData();
+
+// useEffect(() => {
+//   const handleScroll = throttle(() => {
+//     const sectorNavElement = sectorNavRef.current;
+//     if (sectorNavElement) {
+//       const sectorNavRect = sectorNavElement.getBoundingClientRect();
+//       const isInView = sectorNavRect.top >= 0 && sectorNavRect.top <= window.innerHeight;
+
+//       if (isInView) {
+//         sectorNavElement.classList.add('sticky', 'top-0', 'z-50');
+//         setIsTop(true);
+//       } else {
+//         sectorNavElement.classList.remove('sticky', 'top-0', 'z-50');
+//         setIsTop(false);
+//       }
+//     }
+//   }, 100); // Throttle scroll events to run every 100ms
+
+//   window.addEventListener('scroll', handleScroll);
+//   return () => window.removeEventListener('scroll', handleScroll);
+// }, []);
 
 
   return (
@@ -95,13 +109,17 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
   );
 };
 
+
+
+
+
 // Main Sector View Component
 const SectorView = ({ sector }) => {
   const contentMap = {
-    population: <PopulationContent category='population'/>,
+    population: <PopulationContent category='population' />,
     familyAndHousing: <PopulationContent category='family and household' />,
     health: <PopulationContent category='health' />,
-    education: <PopulationContent category='education'/>,
+    education: <PopulationContent category='education' />,
     infrastructure: <DefaultContent sector="Infrastructure" />,
     transportation: <PopulationContent category="women and children" />,
     environment: <PopulationContent category="agriculture" />,
@@ -111,7 +129,7 @@ const SectorView = ({ sector }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
+    <div className="bg-white px-6 rounded-lg shadow-sm">
       {contentMap[sector]}
     </div>
   );
@@ -119,10 +137,11 @@ const SectorView = ({ sector }) => {
 
 const DetailedProfileSection = () => {
   // const {ward} = useWard()
+  const t = useTranslations()
   const [activeSector, setActiveSector] = useState('population')
   return (
     <div className="p-4 space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800 pl-4">Theme Specific Profiles</h2>
+      <h2 className="text-2xl font-bold text-gray-800 pl-4">{t('common.profile_topics')}</h2>
       <SectorNavigation
         activeSector={activeSector}
         onSectorChange={setActiveSector}

@@ -12,7 +12,7 @@ export default function PopulationContent({category}:{category:string}) {
     const [wardDataIndicators, setWardDataIndicators] = useState([]);
     const [categoryDataIndicators, setCategoryDataIndicators] = useState([]);
     const [yearlyDataIndicators, setYearlyDataIndicators] = useState([]);
-    const { wardData, categoryData, yearlyData, mainBannerData, isLoading, error } = useData();
+    const { wardData, categoryData, yearlyData } = useData();
     const language = useLocale();
     useEffect(() => {
         const fetchIndicators = async () => {
@@ -33,11 +33,9 @@ export default function PopulationContent({category}:{category:string}) {
         fetchIndicators();
     }, [category]);
 
-    console.warn('WARD data indicators', yearlyDataIndicators)
 
     return (
         <div className='h-full'>
-            <h1 className='text-slate-900 font-bold text-xl'>Wardwise Comparisom</h1>
             {wardDataIndicators.map((item: string, index: number) =>
             (<div key={index}>
                 <WarwiseVizWrapper wardData={wardData} language={language} indicatorCode={item} />

@@ -1,7 +1,7 @@
 // / src/contexts/DataContext.tsx
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { DataContextType, WardIndicatorData, CategoryIndicatorData, YearlyIndicatorData, MainBannerData } from '../../types/data';
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -18,9 +18,12 @@ export const DataProvider = ({
     mainBannerData: MainBannerData[];
   }
 }) => {
-  const [data, setData] = useState(initialData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data, _setData] = useState(initialData);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoading, _setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, _setError] = useState<Error | null>(null);
 
   const value = {
     ...data,

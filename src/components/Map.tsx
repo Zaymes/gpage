@@ -5,11 +5,28 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useWard } from '@/app/ProfileContext';
 
+// Define more specific types
 interface WardProperties {
   wards: string;
 }
 
-const MapClickHandler = ({ onMapClick }: { onMapClick: (e: L.LeafletMouseEvent) => void }) => {
+interface GeoJSONData {
+  type: string;
+  features: Array<{
+    type: string;
+    properties: WardProperties;
+    geometry: {
+      type: string;
+      coordinates: string; // You might want to make this more specific
+    };
+  }>;
+}
+
+interface MapClickHandlerProps {
+  onMapClick: (e: L.LeafletMouseEvent) => void;
+}
+
+const MapClickHandler = ({ onMapClick }: MapClickHandlerProps) => {
   const map = useMap();
   
   useEffect(() => {
@@ -24,7 +41,7 @@ const MapClickHandler = ({ onMapClick }: { onMapClick: (e: L.LeafletMouseEvent) 
 
 const Map = () => {
   const { setWard } = useWard();
-  const [geoData, setGeoData] = useState<any>(null);
+  const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
   const [selectedWard, setSelectedWard] = useState<string | null>(null);
   const mapRef = useRef<L.Map | null>(null);
   const geoJsonRef = useRef<L.GeoJSON | null>(null);
@@ -36,7 +53,7 @@ const Map = () => {
       try {
         const response = await fetch(`data/tulsipur_wards.geojson`);
         if (!response.ok) throw new Error('Failed to load GeoJSON');
-        const data = await response.json();
+        const data: GeoJSONData = await response.json();
         setGeoData(data);
       } catch (error) {
         console.error('Error loading GeoJSON:', error);
@@ -60,7 +77,7 @@ const Map = () => {
         if (selectedWard) {
           const layer = layersRef.current[selectedWard];
           if (layer && 'setStyle' in layer) {
-            (layer as any).setStyle({
+            (layer as L.GeoJSON).setStyle({
               fillColor: '#00C897',
               weight: 3,
               color: '#333',
@@ -117,10 +134,10 @@ const Map = () => {
     if (isZoomingRef.current) return;
     
     const clickedPoint = e.latlng;
-    let clickedWard = null;
+    let clickedWard: string | null = null;
 
-    Object.entries(layersRef.current).forEach(([wardNumber, layer]: [string, any]) => {
-      if (layer.getBounds && layer.getBounds().contains(clickedPoint)) {
+    Object.entries(layersRef.current).forEach(([wardNumber, layer]) => {
+      if ('getBounds' in layer && (layer as L.GeoJSON).getBounds().contains(clickedPoint)) {
         clickedWard = wardNumber;
       }
     });
@@ -141,20 +158,20 @@ const Map = () => {
     const wardNumber = feature.properties.wards;
     layersRef.current[wardNumber] = layer;
     
-    const layerWithMethods = layer as L.Layer & {
-      bindTooltip: Function;
-      setStyle: Function;
-      getBounds: Function;
+    const geoLayer = layer as L.GeoJSON & {
+      bindTooltip: (tooltip: string, options?: L.TooltipOptions) => L.Layer;
+      setStyle: (style: L.PathOptions) => L.Layer;
+      getBounds: () => L.LatLngBounds;
     };
   
-    layerWithMethods.bindTooltip(
+    geoLayer.bindTooltip(
       `<div class="ward-label">${wardNumber}</div>`,
       { permanent: true, direction: 'center', className: 'ward-tooltip' }
     );
   
     layer.on('mouseover', (e) => {
       if (isZoomingRef.current) return;
-      const target = e.target as typeof layerWithMethods;
+      const target = e.target as L.GeoJSON;
       if (selectedWard !== wardNumber) {
         target.setStyle(highlightStyle);
       }
@@ -162,7 +179,7 @@ const Map = () => {
 
     layer.on('mouseout', (e) => {
       if (isZoomingRef.current) return;
-      const target = e.target as typeof layerWithMethods;
+      const target = e.target as L.GeoJSON;
       if (selectedWard !== wardNumber) {
         target.setStyle(getWardStyle(feature));
       }
@@ -171,7 +188,7 @@ const Map = () => {
     layer.on('click', (e) => {
       if (isZoomingRef.current) return;
       L.DomEvent.stopPropagation(e);
-      const target = e.target as typeof layerWithMethods;
+      const target = e.target as L.GeoJSON;
       
       if (selectedWard === wardNumber) {
         setSelectedWard(null);
@@ -200,7 +217,7 @@ const Map = () => {
 
   return (
     <MapContainer
-      center={[28.101213, 82.298307]}
+      center={[28.10654, 82.258307]}
       zoom={10.5}
       dragging={false}
       scrollWheelZoom={false}

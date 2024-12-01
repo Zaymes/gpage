@@ -6,6 +6,8 @@ import { Providers } from "@/components/Providers";
 import { fetchResourceData } from "@/lib/api/ckan";
 import "../globals.css";
 
+type Locale = typeof locales[number]; 
+
 interface RootLayoutProps {
   children: React.ReactNode;
   params: {
@@ -24,7 +26,10 @@ export default async function RootLayout({
   children,
   params: { locale }
 }: RootLayoutProps) {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale as Locale)) {
+    notFound(); // Handle invalid locale
+    return null; // Avoid further rendering
+  }
 
     // Providing all messages to the client
   // side is the easiest way to get started

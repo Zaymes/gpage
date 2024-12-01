@@ -2,29 +2,26 @@
 import { useState } from 'react';
 import Map from '../Map';
 import InfoPanel from '../InfoPanel';
-import { useLocale } from 'next-intl';
 import { WardContext } from '@/app/ProfileContext';
 
 
 
-interface Ward{
-    district: string;
-    district_code: number;
-    fid: number;
-    locallevel_code: number;
-    locallevel_fullcode: number;
-    locallevel_name: string;
-    locallevel_name_nepali: string;
-    locallevel_type: string;
-    province: number;
-    wards: number;
-    }
+// interface Ward{
+//     district: string;
+//     district_code: number;
+//     fid: number;
+//     locallevel_code: number;
+//     locallevel_fullcode: number;
+//     locallevel_name: string;
+//     locallevel_name_nepali: string;
+//     locallevel_type: string;
+//     province: number;
+//     wards: number;
+//     }
 
 export default function MapSection(){
   // const {ward} = useWard()
-  const locale = useLocale()
   const [ward, setWard] = useState<string>('Municipal')
-    // console.log('ward that has been selected',ward);
   
     // const handleWardSelect = (ward: Ward):void =>  {
     //   setWard(ward); // Update state with the selected ward's data

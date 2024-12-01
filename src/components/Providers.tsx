@@ -7,7 +7,12 @@ export function Providers({
   data 
 }: { 
   children: React.ReactNode;
-  data: any; // Replace 'any' with your actual data type
+  data: {
+    wardData: [];
+    categoryData: [];
+    yearlyData: [];
+    mainBannerData: [];
+  }; 
 }) {
   return (
     <DataProvider initialData={data}>

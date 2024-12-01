@@ -18,8 +18,8 @@ export function getTopAndBottomElements(
         .slice(0, 5); // Bottom 5 indices
 
     // Use the indices to get corresponding elements from `arr2`
-    const top5 = topIndices.map(index => arr2[index]);
-    const bottom5 = bottomIndices.map(index => arr2[index]);
+    const top5 = topIndices.map(index => ({'name':arr2[index], 'value':arr1[index]}));
+    const bottom5 = bottomIndices.map(index => ({'name':arr2[index], 'value':arr1[index]}));
 
     return { top5, bottom5 };
 }

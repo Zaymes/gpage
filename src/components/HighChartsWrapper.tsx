@@ -20,11 +20,9 @@ const HighchartsWrapper: React.FC<HighchartsWrapperProps> = ({
   data
 }) => {
   if (chartType === 'pie') {
-    console.log('pie pie data', data)
   }
   // Dynamic chart configuration based on type and data
   const getChartOptions = () => {
-    console.log('Barchart data', data)
     const baseOptions = {
       title: { text: data.labels.tooltip },
       //   exporting: {
@@ -52,7 +50,8 @@ const HighchartsWrapper: React.FC<HighchartsWrapperProps> = ({
       case 'bar':
         return {
           ...baseOptions,
-          chart: { type: 'bar', height:460 }
+          chart: { type: 'bar', height:460},
+          legend: {enabled: false}
         };
       case 'pie':
         return {
@@ -90,8 +89,7 @@ const HighchartsWrapper: React.FC<HighchartsWrapperProps> = ({
   };
 
   return (
-    <div className='border-2'>
-
+    <div className='rounded-lg shadow-sm py-8 px-4 bg-white'>
       <HighchartsReact
         highcharts={Highcharts}
         options={getChartOptions()}

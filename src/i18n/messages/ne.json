@@ -8,6 +8,9 @@
       "loading": "लोड हुँदैछ...",
       "error": "त्रुटि: {message}",
       "main_heading":"उप-महानगरपालिका प्रोफाइल",
+      "sub_heading": "उप-नगरपालिका सारांश ",
+      "ward_no_wrapper":"वडा {message} सारांश",
+      "profile_topics": "प्रोफाइल शीर्षकहरू",
       "language": "नेपाली",
       "select": {
         "category": "कोटि छान्नुहोस्",
@@ -25,7 +28,12 @@
     "summary":{
       "high_wards_title":"{message}को आधार्मा शीर्ष वडाहरु",
       "low_wards_title":"{message}को आधार्मा निम्न वडाहरु",
-      "total_count":"कुल {message}"
+      "total_count":"कुल {message}",
+      "average":"औसत {message}",
+      "top3": "शीर्ष ३ वर्गहरू",
+      "bottom3":"पछिल्लो ३ वर्गहरू",
+      "top3_contribution":"कुल वितरणमा शीर्ष 3 को योगदान",
+      "bottom3_contribution":"कुल वितरणमा पछिल्लो ३ को योगदान"
 
     }
   }
