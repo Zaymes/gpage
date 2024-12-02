@@ -1,8 +1,14 @@
 "use client";
 import { useState } from 'react';
-import Map from '../Map';
+import dynamic from 'next/dynamic';
+// import Map from '../Map';
 import InfoPanel from '../InfoPanel';
 import { WardContext } from '@/app/ProfileContext';
+
+const Map = dynamic(() => import('../Map'), {
+  ssr: false,
+  loading: () => <p>Loading map...</p>
+})
 
 
 

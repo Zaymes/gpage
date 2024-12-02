@@ -1,5 +1,9 @@
 {
-    "navigation": {
+  "Metadata": {
+    "title": "Your Website Title",
+    "description": "Your website description"
+  },  
+  "navigation": {
       "home": "Home",
       "indicators": "Indicators",
       "about": "About"

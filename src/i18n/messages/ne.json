@@ -1,5 +1,9 @@
 {
-    "navigation": {
+  "Metadata": {
+    "title": "तपाईंको वेबसाइट शीर्षक",
+    "description": "तपाईंको वेबसाइट विवरण"
+  },  
+  "navigation": {
       "home": "गृह",
       "indicators": "सूचकहरू",
       "about": "बारेमा"

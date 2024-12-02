@@ -1,12 +1,33 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import {getMessages} from 'next-intl/server';
+import {routing} from '@/i18n/routing';
+import {setRequestLocale} from 'next-intl/server';
 import { locales } from '@/i18n/navigation';
 import { Providers } from "@/components/Providers";
 import { fetchResourceData } from "@/lib/api/ckan";
+import 'leaflet/dist/leaflet.css';
 import "../globals.css";
 
 type Locale = typeof locales[number]; 
+import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata({params}: {params: {locale: string}}) {
+  const t = await getTranslations({
+    locale: params.locale, 
+    namespace: 'Metadata'
+  });
+
+  return {
+    title: t('title'),
+    description: t('description')
+  };
+}
+
+ 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -30,6 +51,8 @@ export default async function RootLayout({
     notFound(); // Handle invalid locale
     return null; // Avoid further rendering
   }
+
+  setRequestLocale(locale);
 
     // Providing all messages to the client
   // side is the easiest way to get started

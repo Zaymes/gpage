@@ -1,6 +1,7 @@
 
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import {
   Users,
   HeartPulse,
@@ -16,12 +17,46 @@ import { DefaultContent } from '../Charts';
 import PopulationContent from '../profile/Population';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
+// import { ClientOnly } from '../BrowserOnly';
 
 // Navigation Component
 
+// Dynamic import for client-side only components
+const ClientOnly = dynamic(() => import('../BrowserOnly'), { ssr: false });
+
 const SectorNavigation = ({ activeSector, onSectorChange }) => {
-  // Navigation items configuration
   const locale = useLocale()
+  const sectorNavRef = useRef(null);
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure this only runs on the client
+  useEffect(() => {
+    setIsClient(true);
+
+    if (typeof window !== 'undefined') {
+      const handleScroll = () => {
+        const sectorNavElement = sectorNavRef.current;
+        if (sectorNavElement) {
+          const sectorNavRect = sectorNavElement.getBoundingClientRect();
+          const isInView =
+            sectorNavRect.top >= 0 &&
+            sectorNavRect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+
+          if (isInView) {
+            sectorNavElement.classList.add('sticky', 'top-0', 'z-50');
+          } else {
+            sectorNavElement.classList.remove('sticky', 'top-0', 'z-50');
+          }
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
   const sectorNavItems = [
     { id: 'population', label: 'Population', label_ne: 'जनसंख्या', Icon: Users },
     { id: 'familyAndHousing', label: 'Family and Housing', label_ne: 'परिवार र आवास', Icon: HousePlus },
@@ -33,81 +68,42 @@ const SectorNavigation = ({ activeSector, onSectorChange }) => {
     { id: 'transportation', label: 'Women and Children', label_ne: 'महिला र बालबालिका', Icon: Baby },
   ];
 
-  const sectorNavRef = useRef(null);
-
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sectorNavElement = sectorNavRef.current;
-      if (sectorNavElement) {
-        const sectorNavRect = sectorNavElement.getBoundingClientRect();
-        const isInView =
-          sectorNavRect.top >= 0 &&
-          sectorNavRect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-
-        if (isInView) {
-          sectorNavElement.classList.add('sticky', 'top-0', 'z-50');
-        } else {
-          sectorNavElement.classList.remove('sticky', 'top-0', 'z-50');
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-
-// useEffect(() => {
-//   const handleScroll = throttle(() => {
-//     const sectorNavElement = sectorNavRef.current;
-//     if (sectorNavElement) {
-//       const sectorNavRect = sectorNavElement.getBoundingClientRect();
-//       const isInView = sectorNavRect.top >= 0 && sectorNavRect.top <= window.innerHeight;
-
-//       if (isInView) {
-//         sectorNavElement.classList.add('sticky', 'top-0', 'z-50');
-//         setIsTop(true);
-//       } else {
-//         sectorNavElement.classList.remove('sticky', 'top-0', 'z-50');
-//         setIsTop(false);
-//       }
-//     }
-//   }, 100); // Throttle scroll events to run every 100ms
-
-//   window.addEventListener('scroll', handleScroll);
-//   return () => window.removeEventListener('scroll', handleScroll);
-// }, []);
-
+  // If not client-side, return null or a placeholder
+  if (!isClient) {
+    return null;
+  }
 
   return (
-    <div
-      ref={sectorNavRef}
-      className="flex flex-wrap gap-2 p-4 bg-white rounded-lg shadow-sm"
-    >
-      {sectorNavItems.map((item) => {
-        const IconComponent = item.Icon;
-        return (
-          <button
-            key={item.id}
-            onClick={() => onSectorChange(item.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all text-sm
+    <ClientOnly>
+      <div
+        ref={sectorNavRef}
+        className="flex flex-wrap gap-2 p-4 bg-white rounded-lg shadow-sm"
+      >
+        {sectorNavItems.map((item) => {
+          const IconComponent = item.Icon;
+          return (
+            <button
+              key={item.id}
+              onClick={() => onSectorChange(item.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all text-sm
               ${activeSector === item.id
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-          >
-            {IconComponent && <IconComponent className="w-4 h-4" />}
-            <span>{locale === "en" ? item.label : item.label_ne}</span>
-          </button>
-        );
-      })}
-    </div>
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+            >
+              {IconComponent && <IconComponent className="w-4 h-4" />}
+              <span>{locale === "en" ? item.label : item.label_ne}</span>
+            </button>
+          );
+        })}
+      </div>
+    </ClientOnly>
   );
 };
+
+// The rest of your component remains the same...
+
+
 
 
 

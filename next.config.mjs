@@ -10,6 +10,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // Skip ESLint checks during build
   },
+  output: 'export',
+
   // Add other Next.js configuration options as needed
 };
 

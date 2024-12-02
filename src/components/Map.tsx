@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
+import dynamic from 'next/dynamic';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useWard } from '@/app/ProfileContext';
@@ -254,4 +255,6 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default dynamic(() => Promise.resolve(Map), {
+  ssr: false
+});
